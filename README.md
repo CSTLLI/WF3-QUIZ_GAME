@@ -35,15 +35,16 @@ git clone https://github.com/CSTLLI/WF3-QUIZ_GAME.git
 ## Installation
 
 ```
+composer require symfony/runtime (obligatoire lorsque l'on pull un projet)
 composer install
-symfony console doctrine:database:create
-symfony console make:migration
-symfony console doctrine:migrations:migrate
+symfony console doctrine:database:create (Création de la BDD)
+symfony console make:migration (Création du fichier migration)
+symfony console doctrine:migrations:migrate (envoi du fichier migration a la BDD afin de la mettre a jour)
 composer require symfony/webpack-encore-bundle
-npm install
+npm install (obligatoire lorsque l'on pull un projet)
 ```
 
-### Webpack Encore
+### Composant qui concerne le Webpack Encore
 
 ```
 npm install sass-loader@^12.0.0 sass --save-dev
@@ -53,6 +54,7 @@ npm i bootstrap --save-dev
 npm install jquery
 npm install --save @fortawesome/fontawesome-free
 ```
+
 
 ## Répartition des tâches
 
