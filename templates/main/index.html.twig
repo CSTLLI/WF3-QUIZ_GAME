@@ -1,14 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block body %}
 
+    <div class="m-5">
+        <h1>Page d'acceuil, juste après la connexion.</h1>
+        <h2>Si professeur :</h2>
+            <ul>
+                <li>Liste des élèves, chacun cliquable:
+                    <ul><li>exo fait par l'élève</li>
+                        <li>note par exo</li>
+                        <li>moyenne par theme</li>
+                        <li>moyenne générale de l'élève</li>
+                    </ul>
+                </li>
+                <li>Infos générale
+                    <ul><li>nombre d'élèves inscrit</li>
+                        <li>moyenne de tous les élèves</li>
+                        <li>moyenne de tous les élèves par theme</li>
+                    </ul>
+                </li>
+                <li>Création d'exerice</li>
+                    <ul><li>Choix du thème</li>
+                        <li>Choix de la difficultée</li>
+                        <li>div (vide au départ) qui contient les question de cet exo
+                            <ul><li>permet de cliquer sur une question pour modification ou suppression</li></ul>
+                        </li>
+                        <li>Formulaire d'ajout d'une question
+                            <ul><li>Question
+                                <ul><li>la question doit comporter une phrase</li>
+                                    <li>la question peut comporter une image ou un audio</li>
+                                </ul></li>
+                                <li>de Choix (4 de bases) 
+                                    <ul><li>un choix doit comporter une phrase</li>
+                                        <li>un choix peut contenir une image ou un audio</li>
+                                    </ul>
+                                </li>
+                                <li>bouton "Ajouter un choix"
+                                    <ul><li>Supprimer ce choix</li>
+                                    </ul>
+                                </li>
+                                <li>Séléction d'un choix, qui sera la "bonne réponse"</li>
+                                <li>bouton "ajouter une autre bonne réponse"</li>
+                                <li>Ajouter un message si réponse(s) fausse</li>
+                                <li>Ajouter un message si réponse(s) juste</li>
+                            </ul>
+                        </li>
+                </ul>     
+            </ul>
 
-<div class="example-wrapper">
+            <h2>Si élève</h2>
+            <ul>
+                <li>historique des notes de cet elève</li>
+                <li>moyenne générale</li>
+                <li>moyenne par theme</li>
+                <li>bouton "faire un exercice"</li>
+            </ul>
+        </div>
 
-    <h1>Hello !</h1>
 
-</div>
 
 {% endblock %}
