@@ -55,6 +55,8 @@ npm install jquery
 npm install --save @fortawesome/fontawesome-free
 ```
 
+composer require symfony/rate-limiter (# Configuration du nombre maximum de tentatives de connexion échouées sur un temps donné)
+
 
 ## Répartition des tâches
 
