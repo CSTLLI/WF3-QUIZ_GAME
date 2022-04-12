@@ -29,6 +29,8 @@ class ExerciseController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $exercise->setCategory($form->get('category')->getData());
+            $exercise->setDifficulty($form->get('difficulty')->getData());
             $exerciseRepository->add($exercise);
             return $this->redirectToRoute('app_exercise_index', [], Response::HTTP_SEE_OTHER);
         }

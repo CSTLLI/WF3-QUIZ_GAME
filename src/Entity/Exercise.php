@@ -24,7 +24,6 @@ class Exercise
     #[ORM\JoinColumn(nullable: false)]
     private $difficulty;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -65,6 +64,8 @@ class Exercise
 
         return $this;
     }
+
+
 
 
 }

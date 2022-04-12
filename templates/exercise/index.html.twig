@@ -11,34 +11,36 @@
 			<tr>
 				<th>Id</th>
 				<th>Titre</th>
-				<th>Category</th>
+				<th>Categorie</th>
 				<th>Difficulté</th>
 
 
 			</tr>
 		</thead>
-		<tbody>
-			{% for exercise in exercises %}
-				<tr>
-					<td>{{ exercise.id }}</td>
-					<td>{{ exercise.title }}</td>
+			<tbody>
+				{% for exercise in exercises %}
+					<tr>
+						<td>{{ exercise.id }}</td>
+						<td>{{ exercise.title }}</td>
+						<td>{{ exercise.category.name }}</td>
+						<td>{{ exercise.difficulty.name }}</td>
+
+		
+						<td>
+							<a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">Afficher</a>
+							<a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">Modifier</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">Pas de résultats</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	<a href="{{ path('app_exercise_new') }}">Ajouter un nouveau</a>	
+	{% endblock %}
+		
+
 			
 
-
-
-					<td>
-						<a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">Afficher</a>
-						<a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">Modifier</a>
-					</td>
-				</tr>
-
-		</tbody>
-	</table>
-
-	<a href="{{ path('app_exercise_new') }}">Ajouter un nouveau</a>
-    			{% else %}
-				<tr>
-					<td colspan="3">Pas de résultats</td>
-				</tr>
-			{% endfor %}
-{% endblock %}

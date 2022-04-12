@@ -24,6 +24,7 @@ class Difficulty
     #[ORM\OneToMany(mappedBy: 'difficulty', targetEntity: Exercise::class)]
     private $exercises;
 
+
     public function __construct()
     {
         $this->exercises = new ArrayCollection();
