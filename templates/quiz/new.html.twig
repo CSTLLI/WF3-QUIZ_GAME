@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un Thème{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un Thème</h1>
+
+    {{ include('quiz/_form.html.twig') }}
+
+    <a href="{{ path('app_quiz_index') }}">Retour</a>
+{% endblock %}
