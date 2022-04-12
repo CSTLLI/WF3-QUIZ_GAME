@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {# TEMPORAIRE bootswatch lux theme #} 
-{% form_theme startOfQuestionForm 'bootstrap_5_layout.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
 
 
 {% block title %}Exercise Maker{% endblock %}
@@ -11,33 +12,48 @@
     <div class="row">
         <div class="col-sm">
 
-            <h1>Création d'un exercice</h1>
-
-            <ul>
-                <li>Choix du titre de l'exo</li>
-                <li>du thème</li>
-                <li>de la difficultée</li>
-            </ul>
-
             <h2>Ajout de question</h2>
 
-        {{ form_start(startOfQuestionForm) }}
+        {{ form_start(form) }}
+        
+        {{ form_errors(form) }}
 
-        {{ form_errors(startOfQuestionForm) }}
+        {{ form_row(form.title, {'label': 'Quelle question souhaitez-vous poser ?'}) }}
 
-        {{ form_row(startOfQuestionForm.title, {'label': 'Quelle question souhaitez-vous posez ?',
-                                                'attr': {
-                                                        'palceholder': 'You think i\'m in danger ?',
-                                                    }
-                                                }) }}
+        {{ form_row(form.content, {'label': 'Ajoutez une ou plusieurs illustrations : (facultatif)'}) }}
 
-        {{ form_row(startOfQuestionForm.explanation, {'label': 'Ici, expliquez la solution attendu.',
-                                                'attr': {
-                                                        'palceholder': 'I AM THE DANGER',
-                                                    }
-                                                }) }}
+        <h4>Énnoncez ici les choix de réponses, et cochez ceux qui sont correctes.</h4>
+        <h6>Les deux premiers choix sont requis, mais il est possible qu'il n'y est pas de bonne réponse.</h6>
+        
+        <div class="row">
+            <div class="col-4">
+                {{ form_row(form.answer1, {'label': 'Choix 1'}) }}
+                {{ form_row(form.isTrue1, {'label': 'Est-ce une bonne réponse ?'}) }}
+
+                {{ form_row(form.answer2, {'label': 'Choix 2'}) }}
+                {{ form_row(form.isTrue2, {'label': 'Est-ce une bonne réponse ?'}) }}
+
+                {{ form_row(form.answer3, {'label': 'Choix 3'}) }}
+                {{ form_row(form.isTrue3, {'label': 'Est-ce une bonne réponse ?'}) }}
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                {{ form_row(form.answer4, {'label': 'Choix 4'}) }}
+                {{ form_row(form.isTrue4, {'label': 'Est-ce une bonne réponse ?'}) }}
+
+                {{ form_row(form.answer5, {'label': 'Choix 5'}) }}
+                {{ form_row(form.isTrue5, {'label': 'Est-ce une bonne réponse ?'}) }}
+
+                {{ form_row(form.answer6, {'label': 'Choix 6'}) }}
+                {{ form_row(form.isTrue6, {'label': 'Est-ce une bonne réponse ?'}) }}
+            </div>
+        </div>
+
+        {{ form_row(form.explanation, {'label': 'Ici, expliquez la solution en quelques mots. (facultatif',}) }}
 
         <button type="submit" class="btn btn-primary">Ajouter à l'exercice</button>
+        {{ form_end(form) }}
+
 
         </div>
     </div>
