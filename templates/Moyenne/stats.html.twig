@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Moyenne{% endblock %}
+
+{% block body %}
+
+
+
+   <div class="container p-5 ">
+
+{% if note >= 15 %}    
+<div class="text-dark mb-3"><span>Tu peut continuer</span> {{ note }}<span>/20</span></div>
+{% else %}
+<div><span>Tu dois recommencer</span> {{ note }}<span>/20</span></div>
+{% endif %}  
+
+
+ <a href="classement" class="button">Voir classement</a>
+    <h1>Moyenne</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Email</th>
+                <td>{{ result.user_id }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ result.exercise_id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ result.grade}}</td>
+            </tr>
+           <tr>
+                <th>UpdatedAt</th>
+                <td>{{ result.updatedAt ? result.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% for comment in user.comments %}
+
+        {{ dump(comment.content) }}
+
+    {% endfor %}    
+
+
+    <a href="{{ path('app_admin_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('admin/_delete_form.html.twig') }}
+{% endblock %}
+
+
+
+
+
+
+
+
