@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Result;
+use App\Entity\User;
+use App\Entity\Exercise;
 use App\Form\ResultType;
 use App\Repository\ResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,11 +27,12 @@ class ResultController extends AbstractController
     public function new(Request $request, ResultRepository $resultRepository): Response
     {
         $result = new Result();
-        $result
         $form = $this->createForm(ResultType::class, $result);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $result->setUser($form->get('user')->getData());
+            $result->setExercise($form->get('exercise')->getData());
             $resultRepository->add($result);
             return $this->redirectToRoute('app_result_index', [], Response::HTTP_SEE_OTHER);
         }
