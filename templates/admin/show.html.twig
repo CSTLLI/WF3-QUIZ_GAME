@@ -1,23 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Information{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>Menu Administrateur</h1>
+    <h2>Information utilisateur n°{{ user.id }}</h2>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
                 <th>Name</th>
@@ -27,12 +20,17 @@
                 <th>Firstname</th>
                 <td>{{ user.firstname }}</td>
             </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_index') }}">back to list</a>
+    <a href="{{ path('app_admin_index') }}">Retour sur la page d'accueil Admin</a>
 
-    <a href="{{ path('app_admin_edit', {'id': user.id}) }}">edit</a>
+    {% if  user.roles[0] != 'ROLE_ADMIN'  %} {# Possibilité de Modifier tous les utilisateurs SAUF l' Admin #}
+        <a href="{{ path('app_admin_edit', {'id': user.id}) }}">Modifier l'utilisateur</a>
+    {% endif %}
 
-    {{ include('admin/_delete_form.html.twig') }}
 {% endblock %}

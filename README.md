@@ -35,24 +35,40 @@ git clone https://github.com/CSTLLI/WF3-QUIZ_GAME.git
 ## Installation
 
 ```
-composer require symfony/runtime (obligatoire lorsque l'on pull un projet)
-composer install
-symfony console doctrine:database:create (Création de la BDD)
-symfony console make:migration (Création du fichier migration)
-symfony console doctrine:migrations:migrate (envoi du fichier migration a la BDD afin de la mettre a jour)
-composer require symfony/webpack-encore-bundle
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+composer install (obligatoire lorsque l'on pull un projet)
 npm install (obligatoire lorsque l'on pull un projet)
+npm run dev (obligatoire lorsque l'on pull un projet)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+      ***************************************************  BASE DE DONNEE  **************************************************
+      *                                                                                                                     *
+      *      symfony console doctrine:database:create (Création de la BDD)                                                  *
+      *      symfony console doctrine:database:drop --force (Suppression de la base de données)                             *
+      *      symfony console make:migration (Création du fichier migration)                                                 *
+      *      symfony console doctrine:migrations:migrate (envoi du fichier migration a la BDD afin de la mettre a jour)     *
+      *                                                                                                                     *
+      ***********************************************************************************************************************
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+composer require symfony/webpack-encore-bundle
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ```
 
 ### Composant qui concerne le Webpack Encore
 
 ```
-npm install sass-loader@^12.0.0 sass --save-dev
-npm install postcss-loader@^6.0.0 --save-dev
-npm install autoprefixer --save-dev
-npm i bootstrap --save-dev
-npm install jquery
-npm install --save @fortawesome/fontawesome-free
+      ***************************** Composant à installer si vous souhaitez les utiliser *****************************
+      *                                                                                                              *
+      *     npm install sass-loader@^12.0.0 sass --save-dev                                                          *
+      *     npm install postcss-loader@^6.0.0 --save-dev                                                             *
+      *     npm install autoprefixer --save-dev                                                                      *  
+      *     npm i bootstrap --save-dev                                                                               * 
+      *     npm install jquery                                                                                       *
+      *     npm install --save @fortawesome/fontawesome-free                                                         *
+      *                                                                                                              *
+      ****************************************************************************************************************
 ```
 
 composer require symfony/rate-limiter (# Configuration du nombre maximum de tentatives de connexion échouées sur un temps donné)
