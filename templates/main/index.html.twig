@@ -1,14 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Création d'un Quiz{% endblock %}
 
 {% block body %}
 
+    <div>
+        <div class="example-wrapper">
+            <h1>Création d'un Quiz</h1>
+            <p>Bonjour, je vais vous accompagner dans la création du quiz, j'espère pouvoir vous guider de la meilleure façon possible.</p>
+            <p>La création du quiz se fait en 3 étapes : Le thème / la difficulté / l'exercice (qui regroupera tous les QCM)
+        </div>
 
-<div class="example-wrapper">
+        <div>
+            <p>Pour débuter la création d'un quiz, veuillez créer un thème</p>
+            <a href="{{ path('app_quiz_new') }}">Cliquez ici pour créer un nouveau thème</a>
+            <a href="{{ path('app_quiz_index') }}">Cliquez ici pour voir la liste des thèmes</a>
+            <p>Si vous avez déja un thème de créer et que vous souhaitez l'utiliser, passez cette étape !</p>
+        </div>
 
-    <h1>Hello !</h1>
+        <div>
+            <p>Pour débuter la création d'un quiz, veuillez créer une difficulté</p>
+            <a href="{{ path('app_difficulty_new') }}">Cliquez ici pour créer une nouvelle difficulté</a>
+            <a href="{{ path('app_difficulty_index') }}">Cliquez ici pour voir la liste des difficultés</a>
+            <p>Si vous avez déja une difficulté de créer et que vous souhaitez l'utiliser, passez cette étape !</p>
+        </div>
 
-</div>
+        <div>
+            <p>Pour débuter la création d'un quiz, veuillez créer un exercice</p>
+            <a href="{{ path('app_exercise_new') }}">cliquez ici pour créer un nouvel exercice</a>
+            <a href="{{ path('app_exercise_index') }}">Cliquez ici pour voir la liste des exercices</a>
+            <p>Si vous avez déja un exercice de créer et que vous souhaitez l'utiliser, passez cette étape !</p>
+        </div>
 
+        <div>
+            <p>Félicitation ! Vous avez terminé la création du quiz !</p>
+        </div>
+    </div>
 {% endblock %}
