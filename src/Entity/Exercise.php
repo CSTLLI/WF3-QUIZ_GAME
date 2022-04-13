@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ExerciseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExerciseRepository::class)]
@@ -20,6 +21,7 @@ class Exercise
 
     #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: Question::class, orphanRemoval: true)]
     private $question;
+
 
     public function __construct()
     {
@@ -72,4 +74,5 @@ class Exercise
 
         return $this;
     }
+
 }

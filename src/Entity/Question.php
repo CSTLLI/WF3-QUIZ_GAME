@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\QuestionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -30,6 +29,7 @@ class Question
     #[ORM\ManyToOne(targetEntity: Exercise::class, inversedBy: 'question')]
     #[ORM\JoinColumn(nullable: false)]
     private $exercise;
+
 
 
 

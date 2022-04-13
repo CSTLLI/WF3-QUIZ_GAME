@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Question;
 use App\Entity\Media;
+use App\Repository\QuestionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -88,6 +89,8 @@ class QuestionController extends AbstractController
             $manager->flush();
 
             // REDIRECTION ?    AFFICHAGE 'Question bien ajoutée'  ?
+
+            // LIAISON AVEC UN EXO OBLIGATOIRE
         
             }
 
@@ -96,8 +99,5 @@ class QuestionController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-    
 
 }
