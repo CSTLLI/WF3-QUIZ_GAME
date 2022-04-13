@@ -33,6 +33,14 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig');
     }
 
+/* ---------------------------------------------------- Route MAIN (Création de quiz) --------------------------------------------------*/
+    
+    #[Route('/quiz', name: 'quiz')]
+    public function quiz(): Response
+    {
+        return $this->render('main/quiz.html.twig');
+    }
+
 /* ------------------------------------------------ Route MAIN (Inscription utilisateur) -----------------------------------------------*/
 
     #[Route('/inscription', name: 'register')]
