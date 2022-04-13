@@ -10,10 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/exercise')]
+/* ---------------------------------------------------- Route EXERCISE (Principal) ---------------------------------------------------------*/
+
+#[Route('/exercise', name: 'app_exercise_')]
 class ExerciseController extends AbstractController
 {
-    #[Route('/', name: 'app_exercise_index', methods: ['GET'])]
+
+/* ---------------------------------------------------------- Route EXERCISE (Home) --------------------------------------------------------*/
+
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(ExerciseRepository $exerciseRepository): Response
     {
         return $this->render('exercise/index.html.twig', [
@@ -21,7 +26,9 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_exercise_new', methods: ['GET', 'POST'])]
+/* ------------------------------------------------- Route EXERCISE (Création exercice) ----------------------------------------------------*/
+
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, ExerciseRepository $exerciseRepository): Response
     {
         $exercise = new Exercise();
@@ -41,7 +48,9 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_exercise_show', methods: ['GET'])]
+/* --------------------------------------------------- Route EXERCISE (Voir exercice) ------------------------------------------------------*/
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Exercise $exercise): Response
     {
         return $this->render('exercise/show.html.twig', [
@@ -49,7 +58,9 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_exercise_edit', methods: ['GET', 'POST'])]
+/* ------------------------------------------------ Route EXERCISE (Modifiaction exercice) -------------------------------------------------*/
+
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Exercise $exercise, ExerciseRepository $exerciseRepository): Response
     {
         $form = $this->createForm(ExerciseType::class, $exercise);
@@ -66,7 +77,9 @@ class ExerciseController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_exercise_delete', methods: ['POST'])]
+/* ------------------------------------------------ Route EXERCISE (Suppression exercice) --------------------------------------------------*/
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Exercise $exercise, ExerciseRepository $exerciseRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$exercise->getId(), $request->request->get('_token'))) {

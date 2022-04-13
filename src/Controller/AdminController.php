@@ -10,11 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+/* ------------------------------------------------- Route ADMIN (Principal) ACCES ADMIN ------------------------------------------------*/
+
 #[IsGranted('ROLE_ADMIN')]
-#[Route('/admin', name: '')]
+#[Route('/admin', name: 'app_admin_')]
 class AdminController extends AbstractController
 {
-    #[Route('/', name: 'app_admin_index', methods: ['GET'])]
+
+/* ---------------------------------------------------------- Route ADMIN (Home) --------------------------------------------------------*/
+
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('admin/index.html.twig', [
@@ -22,7 +28,9 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_admin_new', methods: ['GET', 'POST'])]
+/* ------------------------------------------------- Route ADMIN (Création utilisateur) -------------------------------------------------*/
+
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserRepository $userRepository): Response
     {
         $user = new User();
@@ -40,7 +48,9 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
+/* --------------------------------------------------- Route ADMIN (Voir utilisateur) ---------------------------------------------------*/
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('admin/show.html.twig', [
@@ -48,7 +58,10 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_edit', methods: ['GET', 'POST'])]
+/* ------------------------------------------------ Route ADMIN (Modifiaction utilisateur) ----------------------------------------------*/
+
+
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
         $form = $this->createForm(UserType::class, $user);
@@ -65,7 +78,9 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_delete', methods: ['POST'])]
+/* ------------------------------------------------ Route ADMIN (Suppression utilisateur) -----------------------------------------------*/
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -74,4 +89,5 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

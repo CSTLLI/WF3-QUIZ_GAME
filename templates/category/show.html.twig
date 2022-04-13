@@ -17,11 +17,11 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_quiz_index') }}">Retour</a>
+	<a href="{{ path('app_category_index') }}">Retour</a>
 
-	<a href="{{ path('app_quiz_edit', {'id': category.id}) }}">Modifier</a>
+	<a href="{{ path('app_category_edit', {'id': category.id}) }}">Modifier</a>
 
-	{{ include('quiz/_delete_form.html.twig') }}
+	{{ include('category/_delete_form.html.twig') }}
 
 
 	{############ ESPACE POUR LES EXERCICES ###########}
@@ -66,7 +66,7 @@
 									<a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">Afficher</a>
 									<a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">Modifier</a>
 
-									<a href="{{ path('app_quiz_index') }}">Retour</a>
+									<a href="{{ path('app_category_index') }}">Retour</a>
 								</td>
 							</tbody>
 						</tr>

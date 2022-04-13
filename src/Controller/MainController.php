@@ -18,20 +18,23 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Recaptcha\RecaptchaValidator;
 use Symfony\Component\Form\FormError;
 
+/* ---------------------------------------------------- Route MAIN (Principal) ---------------------------------------------------------*/
 
-
- /* ----------------------------------------------- Route Principal ----------------------------------------------*/
 #[Route('/', name: 'app_main_')]
 class MainController extends AbstractController
 {
- /* ----------------------------------------------- Route de base(Accueil) ----------------------------------------------*/
+
+/* ---------------------------------------------------------- Route MAIN (Home) --------------------------------------------------------*/
+
     #[Route('/', name: 'base')]
     public function index(): Response
     {
         
         return $this->render('main/index.html.twig');
     }
- /* ----------------------------------------------- Route Inscription + Recaptcha ----------------------------------------------*/
+
+/* ------------------------------------------------ Route MAIN (Inscription utilisateur) -----------------------------------------------*/
+
     #[Route('/inscription', name: 'register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, RecaptchaValidator $recaptcha): Response
     {   
@@ -84,16 +87,14 @@ class MainController extends AbstractController
                 return $this->render('main/register.html.twig', [
                     'registrationForm' => $form->createView(),
                 ]);
-
             }
-            
         }           
-                
         return $this->renderForm('main/register.html.twig', [
             'form' => $form]);
     }
 
- /* ----------------------------------------------- Route Connexion/Déconnexion ----------------------------------------------*/
+/* ------------------------------------------------ Route MAIN (Connexion utilisateur) ------------------------------------------------*/
+
     #[Route(path: '/connexion', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -109,10 +110,13 @@ class MainController extends AbstractController
         return $this->render('main/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+/* ------------------------------------------------ Route MAIN (Déconnexion utilisateur) ----------------------------------------------*/
+
     #[Route(path: '/deconnexion', name: 'logout')]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
 }
 

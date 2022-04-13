@@ -10,15 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/result')]
+/* ------------------------------------------------------- Route RESULT (Principal) ------------------------------------------------------*/
+
+#[Route('/result', name: 'app_result_')]
 class ResultController extends AbstractController
 {
-    #[Route('/', name: 'app_result_index', methods: ['GET'])]
+
+/* ---------------------------------------------------------- Route RESULT (Home) --------------------------------------------------------*/
+
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(ResultRepository $resultRepository): Response
     {
         // Déclaration de la variable 'average'
         $average = [];
-    // ------------------------------------------------------------------------------------------------------------------------------------------------------
+        
+    // --------------------------------------------------------------------
         
         // Fonction pour calculer le total des moyennes (moyenne de classe)
         function getAverage(array $average){
@@ -29,7 +35,7 @@ class ResultController extends AbstractController
             return $moyenne=($somme / count($average));
         };
 
-    // ------------------------------------------------------------------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------
         
         // Fonction pour calculer la moyenne de chaque élève (par son ID)
         function getAverageById(array $average){
@@ -46,17 +52,16 @@ class ResultController extends AbstractController
             return $moyenne=($somme / count($average));
         };
 
-    //------------------------------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------
         
         // Foreach pour aller récupérer toutes les notes pour calculer la moyenne de classe
-        foreach($resultRepository->findAll() as $resultEntity)
-        {
+        foreach($resultRepository->findAll() as $resultEntity) {
             $average[]=$resultEntity->getGrades();
         }
         // Varaible pour calculer le total des moyennes (moyenne de classe)
         //dd(getAverage($average));
 
-    //------------------------------------------------------------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------
         
         // Variable pour calculer la moyenne des apprenants (par ID)
         $ApprenantMoyenne = $resultRepository->findAllinUser(1);
@@ -69,7 +74,9 @@ class ResultController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_result_new', methods: ['GET', 'POST'])]
+/* ------------------------------------------------- Route RESULT (Création résultat) ---------------------------------------------------*/
+
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, ResultRepository $resultRepository): Response
     {
         $result = new Result();
@@ -90,7 +97,9 @@ class ResultController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_result_show', methods: ['GET'])]
+/* --------------------------------------------------- Route RESULT (Voir résultat) ------------------------------------------------------*/
+
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Result $result): Response
     {
         return $this->render('result/show.html.twig', [
@@ -98,7 +107,9 @@ class ResultController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_result_edit', methods: ['GET', 'POST'])]
+/* ------------------------------------------------ Route RESULT (Modifiaction résultat) -------------------------------------------------*/
+
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Result $result, ResultRepository $resultRepository): Response
     {
         $form = $this->createForm(ResultType::class, $result);
@@ -116,7 +127,9 @@ class ResultController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_result_delete', methods: ['POST'])]
+/* ------------------------------------------------ Route RESULT (Suppression résultat) --------------------------------------------------*/
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Result $result, ResultRepository $resultRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$result->getId(), $request->request->get('_token'))) {
@@ -125,4 +138,5 @@ class ResultController extends AbstractController
 
         return $this->redirectToRoute('app_result_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
