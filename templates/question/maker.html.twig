@@ -8,7 +8,7 @@
 {% block title %}Exercise Maker{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-sm">
 
@@ -20,7 +20,7 @@
 
         {{ form_row(form.title, {'label': 'Quelle question souhaitez-vous poser ?'}) }}
 
-        {{ form_row(form.content, {'label': 'Ajoutez une ou plusieurs illustrations : (facultatif)'}) }}
+        {{ form_row(form.image, {'label': 'Ajoutez une ou plusieurs illustrations : (facultatif)'}) }}
 
         <h4>Énnoncez ici les choix de réponses, et cochez ceux qui sont correctes.</h4>
         <h6>Les deux premiers choix sont requis, mais il est possible qu'il n'y est pas de bonne réponse.</h6>
@@ -30,26 +30,26 @@
                 {{ form_row(form.answer1, {'label': 'Choix 1'}) }}
                 {{ form_row(form.isTrue1, {'label': 'Est-ce une bonne réponse ?'}) }}
 
-                {{ form_row(form.answer2, {'label': 'Choix 2'}) }}
-                {{ form_row(form.isTrue2, {'label': 'Est-ce une bonne réponse ?'}) }}
-
                 {{ form_row(form.answer3, {'label': 'Choix 3'}) }}
                 {{ form_row(form.isTrue3, {'label': 'Est-ce une bonne réponse ?'}) }}
-            </div>
-            <div class="col-2"></div>
-            <div class="col-4">
-                {{ form_row(form.answer4, {'label': 'Choix 4'}) }}
-                {{ form_row(form.isTrue4, {'label': 'Est-ce une bonne réponse ?'}) }}
 
                 {{ form_row(form.answer5, {'label': 'Choix 5'}) }}
                 {{ form_row(form.isTrue5, {'label': 'Est-ce une bonne réponse ?'}) }}
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                {{ form_row(form.answer2, {'label': 'Choix 2'}) }}
+                {{ form_row(form.isTrue2, {'label': 'Est-ce une bonne réponse ?'}) }}
+
+                {{ form_row(form.answer4, {'label': 'Choix 4'}) }}
+                {{ form_row(form.isTrue4, {'label': 'Est-ce une bonne réponse ?'}) }}
 
                 {{ form_row(form.answer6, {'label': 'Choix 6'}) }}
                 {{ form_row(form.isTrue6, {'label': 'Est-ce une bonne réponse ?'}) }}
             </div>
         </div>
 
-        {{ form_row(form.explanation, {'label': 'Ici, expliquez la solution en quelques mots. (facultatif',}) }}
+        {{ form_row(form.explanation, {'label': 'Ici, expliquez la solution en quelques mots. (facultatif)',}) }}
 
         <button type="submit" class="btn btn-primary">Ajouter à l'exercice</button>
         {{ form_end(form) }}

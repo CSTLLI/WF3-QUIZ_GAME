@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
@@ -24,13 +24,14 @@ class Question
     #[ORM\Column(type: 'array', length: 255, nullable: false)]
     private $answer;
 
-    #[ORM\OneToMany(mappedBy: 'question_id', targetEntity: Media::class)]
-    private $media_id;
+    #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    private $media;
 
-    public function __construct()
-    {
-        $this->media_id = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: Exercise::class, inversedBy: 'question')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $exercise;
+
+
 
     public function getId(): ?int
     {
@@ -73,33 +74,28 @@ class Question
         return $this;
     }
 
-    /**
-     * @return Collection<int, Media>
-     */
-    public function getMediaId(): Collection
+    public function getMedia(): ?Media
     {
-        return $this->media_id;
+        return $this->media;
     }
 
-    public function addMediaId(Media $mediaId): self
+    public function setMedia(?Media $media): self
     {
-        if (!$this->media_id->contains($mediaId)) {
-            $this->media_id[] = $mediaId;
-            $mediaId->setQuestionId($this);
-        }
+        $this->media = $media;
 
         return $this;
     }
 
-    public function removeMediaId(Media $mediaId): self
+    public function getExercise(): ?Exercise
     {
-        if ($this->media_id->removeElement($mediaId)) {
-            // set the owning side to null (unless already changed)
-            if ($mediaId->getQuestionId() === $this) {
-                $mediaId->setQuestionId(null);
-            }
-        }
+        return $this->exercise;
+    }
+
+    public function setExercise(?Exercise $exercise): self
+    {
+        $this->exercise = $exercise;
 
         return $this;
     }
+
 }

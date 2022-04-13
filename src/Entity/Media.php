@@ -19,8 +19,7 @@ class Media
     #[ORM\Column(type: 'text')]
     private $content;
 
-    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'media_id')]
-    private $question_id;
+
 
     public function getId(): ?int
     {
@@ -51,15 +50,4 @@ class Media
         return $this;
     }
 
-    public function getQuestionId(): ?Question
-    {
-        return $this->question_id;
-    }
-
-    public function setQuestionId(?Question $question_id): self
-    {
-        $this->question_id = $question_id;
-
-        return $this;
-    }
 }
