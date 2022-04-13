@@ -27,10 +27,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_index') }}">Retour sur la page d'accueil Admin</a>
+    <a href="{{ path('app_admin_index') }}" class="btn btn-primary">Retour sur la page d'accueil Admin</a>
 
     {% if  user.roles[0] != 'ROLE_ADMIN'  %} {# Possibilité de Modifier tous les utilisateurs SAUF l' Admin #}
-        <a href="{{ path('app_admin_edit', {'id': user.id}) }}">Modifier l'utilisateur</a>
+        <a href="{{ path('app_admin_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier l'utilisateur</a>
     {% endif %}
 
 {% endblock %}

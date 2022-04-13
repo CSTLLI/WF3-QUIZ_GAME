@@ -30,7 +30,8 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_quiz_index') }}">Retour</a>
+	<a href="{{ path('app_quiz_index') }}" class="btn btn-primary">Retour à la liste d'exercice</a>
+    <a href="{{ path('app_exercise_index') }}" class="btn btn-primary">Retour à la création de quiz</a>
 
 	<a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">Modifier</a>
 

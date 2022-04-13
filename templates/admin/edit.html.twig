@@ -8,7 +8,7 @@
 
     {{ include('admin/_form.html.twig', {'button_label': 'Valider la modification'}) }}
 
-    <a href="{{ path('app_admin_index') }}">Retour sur la page d'accueil Admin</a>
+    <a href="{{ path('app_admin_index') }}" class="btn btn-primary">Retour sur la page d'accueil Admin</a>
 
     {{ include('admin/_delete_form.html.twig') }}
 {% endblock %}
