@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Result{% endblock %}
+{% block title %}Resultat{% endblock %}
 
 {% block body %}
-    <h1>Result</h1>
+    <h1>Resultat</h1>
 
     <table class="table">
         <tbody>
@@ -16,19 +16,19 @@
                 <td>{{ result.exercise.title }}</td>
             </tr>
             <tr>
-                <th>Grades</th>
+                <th>Notes</th>
                 <td>{{ result.grades }} / 20 </td>
             </tr>
             <tr>
-                <th>Update_at</th>
+                <th>Fait_le</th>
                 <td>{{ result.updateAt ? result.updateAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_result_index') }}">back to list</a>
+    <a href="{{ path('app_result_index') }}">Retour à la liste de résultat</a>
 
-    <a href="{{ path('app_result_edit', {'id': result.id}) }}">edit</a>
+    <a href="{{ path('app_result_edit', {'id': result.id}) }}">Modifier</a>
 
     {{ include('result/_delete_form.html.twig') }}
 {% endblock %}

@@ -45,22 +45,21 @@ class ResultRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Result[] Returns an array of Result objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Result[] Returns an array of Result objects
+    */
+    // Fonction pour récupérer notes d'un user choisi (par son ID)
+    public function findAllinUser(int $id)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('r.grades')
+            ->andWhere('r.user = :val')
+            ->setParameter('val', $id)            
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Result

@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Result;
-use App\Entity\User;
-use App\Entity\Exercise;
 use App\Form\ResultType;
 use App\Repository\ResultRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +16,54 @@ class ResultController extends AbstractController
     #[Route('/', name: 'app_result_index', methods: ['GET'])]
     public function index(ResultRepository $resultRepository): Response
     {
+        // Déclaration de la variable 'average'
+        $average = [];
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        // Fonction pour calculer le total des moyennes (moyenne de classe)
+        function getAverage(array $average){
+            $somme = 0;
+            foreach($average as $note){
+              $somme =  $somme + $note;
+            }
+            return $moyenne=($somme / count($average));
+        };
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        // Fonction pour calculer la moyenne de chaque élève (par son ID)
+        function getAverageById(array $average){
+            $somme = 0;
+            $tableau = [];
+            // parcourir l'entité + récupération de notes
+            foreach($average as $notes){
+            array_push($tableau, $notes['grades']);
+            }
+            // fait la moyenne des notes
+            foreach($tableau as $note){
+            $somme =  $somme + $note;
+            }
+            return $moyenne=($somme / count($average));
+        };
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        // Foreach pour aller récupérer toutes les notes pour calculer la moyenne de classe
+        foreach($resultRepository->findAll() as $resultEntity)
+        {
+            $average[]=$resultEntity->getGrades();
+        }
+        // Varaible pour calculer le total des moyennes (moyenne de classe)
+        //dd(getAverage($average));
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------
+        
+        // Variable pour calculer la moyenne des apprenants (par ID)
+        $ApprenantMoyenne = $resultRepository->findAllinUser(1);
+        // Calcul de la moyenne des apprenants
+        //dd(getAverageById($ApprenantMoyenne));
+
+
         return $this->render('result/index.html.twig', [
             'results' => $resultRepository->findAll(),
         ]);
@@ -31,6 +77,7 @@ class ResultController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $result->setUpdateAt(new \DateTime());
             $result->setUser($form->get('user')->getData());
             $result->setExercise($form->get('exercise')->getData());
             $resultRepository->add($result);
@@ -58,6 +105,7 @@ class ResultController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $result->setUpdateAt(new \DateTime());
             $resultRepository->add($result);
             return $this->redirectToRoute('app_result_index', [], Response::HTTP_SEE_OTHER);
         }

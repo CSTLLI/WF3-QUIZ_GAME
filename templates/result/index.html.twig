@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Result index{% endblock %}
+{% block title %}Résultat{% endblock %}
 
 {% block body %}
-    <h1>Result index</h1>
+    <h1>Historique de résultats</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Apprenant</th>
                 <th>Exercice</th>     
-                <th>Grades</th>
-                <th>Update_at</th>
-                <th>actions</th>
+                <th>Notes</th>
+                <th>Fait_le</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,17 +23,22 @@
                 <td>{{ result.grades }} / 20</td>
                 <td>{{ result.updateAt ? result.updateAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_result_show', {'id': result.id}) }}">show</a>
-                    <a href="{{ path('app_result_edit', {'id': result.id}) }}">edit</a>
+                    <a href="{{ path('app_result_show', {'id': result.id}) }}">Voir</a>
+                    <a href="{{ path('app_result_edit', {'id': result.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Rien à été trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_result_new') }}">Create new</a>
+    <a href="{{ path('app_result_new') }}">Créer un nouveau resultat</a>
+
+            <div>------------------------------------------------------------------------------------------------------------------------------</div>
+    {% for result in results %}
+    {{ result.grades }}
+    {% endfor %}
 {% endblock %}
