@@ -22,7 +22,14 @@ class Exercise
     private $question;
     #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: Result::class)]
     private $results;
+    
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'exercises')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $category;
 
+    #[ORM\ManyToOne(targetEntity: Difficulty::class, inversedBy: 'exercises')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $difficulty;
 
     public function __construct()
     {
@@ -91,6 +98,30 @@ class Exercise
                 $question->setExercise(null);
             }
         }
+        
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getDifficulty(): ?Difficulty
+    {
+        return $this->difficulty;
+    }
+
+    public function setDifficulty(?Difficulty $difficulty): self
+    {
+        $this->difficulty = $difficulty;
 
         return $this;
     }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la Difficulté{% endblock %}
+
+{% block body %}
+    <h1>Modifier la Difficulté</h1>
+
+    {{ include('difficulty/_form.html.twig', {'button_label': 'Modifier la difficulté'}) }}
+
+    <a href="{{ path('app_difficulty_index') }}">Retour à la liste de difficulté</a>
+
+    {{ include('difficulty/_delete_form.html.twig') }}
+{% endblock %}

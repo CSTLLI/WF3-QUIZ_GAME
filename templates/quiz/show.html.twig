@@ -1,0 +1,88 @@
+{% block title %}Category
+{% endblock %}
+	{############ ESPACE POUR LE THEME ###########}
+{% block body %}
+	<h1>Thème</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ category.id }}</td>
+			</tr>
+			<tr>
+				<th>Nom</th>
+				<td>{{ category.name }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_quiz_index') }}">Retour</a>
+
+	<a href="{{ path('app_quiz_edit', {'id': category.id}) }}">Modifier</a>
+
+	{{ include('quiz/_delete_form.html.twig') }}
+
+
+	{############ ESPACE POUR LES EXERCICES ###########}
+	<div class="row">
+		<div class="col-12 col-md-8 offset-md-2">
+			<div
+				class="p-4 my-4">
+
+				{# Nombre de Exercices dans le titre H2 #}
+				{% if category.exercises|length %}
+					<h2 class="h4 text-title-h2 text-center mb-3">Exercices ({{ category.exercises|length }})</h2>
+				{% endif %}
+
+				{# Affichage de tous les Exercices en les parcourant avec une boucle #}
+				{% for exercise in category.exercises %}
+
+					<div
+						class="card my-3 bg-category">
+
+
+						{# Contenu de l'exercice #}
+						<div class="card-body">
+							<tbody>
+								{% for exercise in category.exercises %}
+
+									<h1>Creer un nouvelle exercice</h1>
+
+
+									<table class="table">
+										<tbody>
+											<tr>
+												<th>Id</th>
+												<td>{{ exercise.id }}</td>
+											</tr>
+											<tr>
+												<th>Nom</th>
+												<td>{{ exercise.title }}</td>
+											</tr>
+										</tbody>
+									</table>
+
+									<a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">Afficher</a>
+									<a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">Modifier</a>
+
+									<a href="{{ path('app_quiz_index') }}">Retour</a>
+								</td>
+							</tbody>
+						</tr>
+						{{ include('exercise/_delete_form.html.twig') }}
+                        
+					{% else %}
+						<p class="text-center text-uppercase alert alert-info">Aucun Exercices</p>
+					{% endfor %}
+
+				</tbody>
+
+
+				<a href="{{ path('app_exercise_new') }}">Ajouter un nouveau</a>
+
+
+			{% else %}
+				<p class="text-center text-uppercase alert alert-info">Aucun Exercices</p>
+			{% endfor %}
+		{% endblock %}
