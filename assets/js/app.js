@@ -8,10 +8,14 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../styles/app.scss';
 
+//Chargement de la bibliothèque jQuery 
+const $ = require('jquery');
+
 // Chargement de la partieJS de bootstrap
 require('bootstrap');
 
 // Chargement de la partie JF de Fontawesome
 require('@fortawesome/fontawesome-free/js/all.js');
+
 
 // MON JS

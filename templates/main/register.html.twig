@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block stylesheets %}
+ {# inclus le block CSS commun #}
+     {{ parent() }}
+     {# Insertion du fichier JS dans le block stylesheets #}
+     {# La documentation de Recaptcha préconise en effet d'intégrer ce fichier JS dans le head #}
+     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{% endblock %}	
+
+{% block body %}
+    <h1>Veuillez-vous incrire</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.name, {
+            label: 'Nom'
+        }) }}
+        {{ form_row(form.firstname, {
+            label: 'Prénom'
+        }) }}
+        {{ form_row(form.plainPassword, {
+            label: 'Mot de passe'
+        }) }}
+
+        {# Affichage du captcha avec la clé publique récupéré #}
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}" data-theme="dark" data-size="normal"></div>
+
+                <div class="col-6 pt-2">
+                        {# Affichage des erreurs générales du formulaire et donc du Google Recaptcha #}
+                        {{ form_errors(form) }}                         
+                </div>
+            </div>			  
+
+        <button type="submit" class="btn">S'inscrire !</button>
+    {{ form_end(form) }}
+{% endblock %}

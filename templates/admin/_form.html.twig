@@ -1,0 +1,13 @@
+{% if  user.roles[0] != 'ROLE_ADMIN'  %}
+{# Formulaire pour tous les utilisateurs SAUF l' Admin #}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+{% else %}
+{# Affichage seulement pour le rôle admin #}
+    <p>Tu ne peux modifier ce profil !</p>
+    <p>Il est le chef suprème !!!</p>
+    
+{% endif %}

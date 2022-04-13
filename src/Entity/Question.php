@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\QuestionRepository;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
@@ -18,6 +19,19 @@ class Question
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $explanation;
+
+    #[ORM\Column(type: 'array', length: 255, nullable: false)]
+    private $answer;
+
+    #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
+    private $media;
+
+    #[ORM\ManyToOne(targetEntity: Exercise::class, inversedBy: 'question')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $exercise;
+
+
+
 
     public function getId(): ?int
     {
@@ -47,4 +61,41 @@ class Question
 
         return $this;
     }
+
+    public function getAnswer(): array
+    {
+        return $this->answer;
+    }
+
+    public function setAnswer(array $answer): self
+    {
+        $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getMedia(): ?Media
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?Media $media): self
+    {
+        $this->media = $media;
+
+        return $this;
+    }
+
+    public function getExercise(): ?Exercise
+    {
+        return $this->exercise;
+    }
+
+    public function setExercise(?Exercise $exercise): self
+    {
+        $this->exercise = $exercise;
+
+        return $this;
+    }
+
 }

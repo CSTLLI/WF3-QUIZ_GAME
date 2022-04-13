@@ -19,6 +19,8 @@ class Media
     #[ORM\Column(type: 'text')]
     private $content;
 
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -47,4 +49,5 @@ class Media
 
         return $this;
     }
+
 }
