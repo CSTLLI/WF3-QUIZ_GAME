@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\ExerciseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ExerciseRepository::class)]
@@ -21,11 +20,14 @@ class Exercise
 
     #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: Question::class, orphanRemoval: true)]
     private $question;
+    #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: Result::class)]
+    private $results;
 
 
     public function __construct()
     {
         $this->question = new ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,6 +61,24 @@ class Exercise
             $this->question[] = $question;
             $question->setExercise($this);
         }
+        return $this;
+    }
+
+
+    /**      
+     * @return Collection<int, Result>
+     */
+    public function getResults(): Collection
+    {
+        return $this->results;
+    }
+
+    public function addResult(Result $result): self
+    {
+        if (!$this->results->contains($result)) {
+            $this->results[] = $result;
+            $result->setExercise($this);
+        }
 
         return $this;
     }
@@ -69,6 +89,19 @@ class Exercise
             // set the owning side to null (unless already changed)
             if ($question->getExercise() === $this) {
                 $question->setExercise(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function removeResult(Result $result): self
+    {
+        if ($this->results->removeElement($result)) {
+            // set the owning side to null (unless already changed)
+            if ($result->getExercise() === $this) {
+                $result->setExercise(null);
             }
         }
 

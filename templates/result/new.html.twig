@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un résultat{% endblock %}
+
+{% block body %}
+    <h1>Création d'un nouveau resultat</h1>
+
+    {{ include('result/_form.html.twig') }}
+
+    <a href="{{ path('app_result_index') }}">Retour à l'historique de résultat</a>
+{% endblock %}
