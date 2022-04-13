@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ExerciseRepository::class)]
 class Exercise
 {
+
+/* ------------------------------------------------------------- COMPOSANT ------------------------------------------------------------------ */
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -18,8 +21,11 @@ class Exercise
     #[ORM\Column(type: 'string', length: 50)]
     private $title;
 
+/* --------------------------------------------------------------- RELATION ----------------------------------------------------------------- */
+
     #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: Question::class, orphanRemoval: true)]
     private $question;
+
     #[ORM\OneToMany(mappedBy: 'exercise', targetEntity: Result::class)]
     private $results;
     
@@ -31,11 +37,15 @@ class Exercise
     #[ORM\JoinColumn(nullable: false)]
     private $difficulty;
 
+/* ------------------------------------------------------------ CONSCTRUCTEUR --------------------------------------------------------------- */
+
     public function __construct()
     {
         $this->question = new ArrayCollection();
         $this->results = new ArrayCollection();
     }
+
+/* ---------------------------------------------------------------- GETTER ------------------------------------------------------------------ */
 
     public function getId(): ?int
     {
@@ -47,12 +57,16 @@ class Exercise
         return $this->title;
     }
 
+/* ---------------------------------------------------------------- SETTER ------------------------------------------------------------------ */
+
     public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
+
+/* ---------------------------------------------------------- RELATION (QUESTION) ----------------------------------------------------------- */
 
     /**
      * @return Collection<int, Question>
@@ -71,6 +85,19 @@ class Exercise
         return $this;
     }
 
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->question->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getExercise() === $this) {
+                $question->setExercise(null);
+            }
+        }
+        
+        return $this;
+    }
+
+/* ----------------------------------------------------------- RELATION (RESULT) ------------------------------------------------------------ */
 
     /**      
      * @return Collection<int, Result>
@@ -90,17 +117,19 @@ class Exercise
         return $this;
     }
 
-    public function removeQuestion(Question $question): self
+    public function removeResult(Result $result): self
     {
-        if ($this->question->removeElement($question)) {
+        if ($this->results->removeElement($result)) {
             // set the owning side to null (unless already changed)
-            if ($question->getExercise() === $this) {
-                $question->setExercise(null);
+            if ($result->getExercise() === $this) {
+                $result->setExercise(null);
             }
         }
-        
+
         return $this;
     }
+
+/* ---------------------------------------------------------- RELATION (CATEGORY) ----------------------------------------------------------- */
 
     public function getCategory(): ?Category
     {
@@ -114,6 +143,8 @@ class Exercise
         return $this;
     }
 
+/* --------------------------------------------------------- RELATION (DIFFICULTY) ---------------------------------------------------------- */
+
     public function getDifficulty(): ?Difficulty
     {
         return $this->difficulty;
@@ -126,17 +157,5 @@ class Exercise
         return $this;
     }
 
-
-    public function removeResult(Result $result): self
-    {
-        if ($this->results->removeElement($result)) {
-            // set the owning side to null (unless already changed)
-            if ($result->getExercise() === $this) {
-                $result->setExercise(null);
-            }
-        }
-
-        return $this;
-    }
-
+    
 }

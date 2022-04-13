@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
 {
+
+/* ------------------------------------------------------------- COMPOSANT ------------------------------------------------------------------ */
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -19,7 +22,11 @@ class Media
     #[ORM\Column(type: 'text')]
     private $content;
 
+/* --------------------------------------------------------------- RELATION ----------------------------------------------------------------- */
 
+
+
+/* ---------------------------------------------------------------- GETTER ------------------------------------------------------------------ */
 
     public function getId(): ?int
     {
@@ -31,16 +38,18 @@ class Media
         return $this->format;
     }
 
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+    
+/* ---------------------------------------------------------------- SETTER ------------------------------------------------------------------ */
+
     public function setFormat(string $format): self
     {
         $this->format = $format;
 
         return $this;
-    }
-
-    public function getContent(): ?string
-    {
-        return $this->content;
     }
 
     public function setContent(string $content): self
@@ -49,5 +58,10 @@ class Media
 
         return $this;
     }
+
+/* ------------------------------------------------------------ RELATION (...) -------------------------------------------------------------- */
+
+
+
 
 }

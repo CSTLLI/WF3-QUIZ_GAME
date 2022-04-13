@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: DifficultyRepository::class)]
 class Difficulty
 {
+
+/* ------------------------------------------------------------- COMPOSANT ------------------------------------------------------------------ */
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -21,14 +24,19 @@ class Difficulty
     #[ORM\Column(type: 'integer')]
     private $timer;
 
+/* --------------------------------------------------------------- RELATION ----------------------------------------------------------------- */
+
     #[ORM\OneToMany(mappedBy: 'difficulty', targetEntity: Exercise::class)]
     private $exercises;
 
+/* ------------------------------------------------------------ CONSCTRUCTEUR --------------------------------------------------------------- */
 
-    public function __construct()
+ public function __construct()
     {
         $this->exercises = new ArrayCollection();
     }
+
+/* ---------------------------------------------------------------- GETTER ------------------------------------------------------------------ */
 
     public function getId(): ?int
     {
@@ -40,16 +48,18 @@ class Difficulty
         return $this->name;
     }
 
+    public function getTimer(): ?int
+    {
+        return $this->timer;
+    }
+
+/* ---------------------------------------------------------------- SETTER ------------------------------------------------------------------ */
+
     public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
-    }
-
-    public function getTimer(): ?int
-    {
-        return $this->timer;
     }
 
     public function setTimer(int $timer): self
@@ -58,6 +68,8 @@ class Difficulty
 
         return $this;
     }
+
+/* ---------------------------------------------------------- RELATION (EXERCISE) ----------------------------------------------------------- */
 
     /**
      * @return Collection<int, Exercise>
@@ -88,4 +100,6 @@ class Difficulty
 
         return $this;
     }
+
+
 }

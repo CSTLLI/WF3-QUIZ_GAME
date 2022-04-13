@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ResultRepository::class)]
 class Result
 {
+
+/* ------------------------------------------------------------- COMPOSANT ------------------------------------------------------------------ */
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -19,6 +22,8 @@ class Result
     #[ORM\Column(type: 'datetime')]
     private $update_at;
 
+/* --------------------------------------------------------------- RELATION ----------------------------------------------------------------- */
+
     #[ORM\ManyToOne(targetEntity: Exercise::class, inversedBy: 'results')]
     #[ORM\JoinColumn(nullable: false)]
     private $exercise;
@@ -27,7 +32,7 @@ class Result
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
-
+/* ---------------------------------------------------------------- GETTER ------------------------------------------------------------------ */
 
     public function getId(): ?int
     {
@@ -39,16 +44,18 @@ class Result
         return $this->grades;
     }
 
+    public function getUpdateAt(): ?\DateTime
+    {
+        return $this->update_at;
+    }
+
+/* ---------------------------------------------------------------- SETTER ------------------------------------------------------------------ */
+
     public function setGrades(int $grades): self
     {
         $this->grades = $grades;
 
         return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTime
-    {
-        return $this->update_at;
     }
 
     public function setUpdateAt(\DateTime $update_at): self
@@ -57,6 +64,8 @@ class Result
 
         return $this;
     }
+
+/* ---------------------------------------------------------- RELATION (EXERCISE) ------------------------------------------------------------ */
 
     public function getExercise(): ?Exercise
     {
@@ -70,6 +79,8 @@ class Result
         return $this;
     }
 
+/* ------------------------------------------------------------ RELATION (USER) --------------------------------------------------------------- */
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -81,8 +92,5 @@ class Result
 
         return $this;
     }
-
-
-
 
 }

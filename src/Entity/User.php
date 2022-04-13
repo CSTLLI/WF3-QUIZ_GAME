@@ -14,6 +14,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'Cet email est déja utilisé !')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    
+/* ------------------------------------------------------------- COMPOSANT ------------------------------------------------------------------ */
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -35,16 +38,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
 
-    /* ------------------------------------- GETTER ------------------------------------------ */ 
+/* --------------------------------------------------------------- RELATION ----------------------------------------------------------------- */
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Result::class)]
     private $results;
 
-
+/* ------------------------------------------------------------ CONSCTRUCTEUR --------------------------------------------------------------- */
 
     public function __construct()
     {
         $this->results = new ArrayCollection();
     }
+
+/* ---------------------------------------------------------------- GETTER ------------------------------------------------------------------ */
 
     public function getId(): ?int
     {
@@ -96,7 +102,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    /* ------------------------------------- SETTER ------------------------------------------ */ 
+/* ---------------------------------------------------------------- SETTER ------------------------------------------------------------------ */
 
     public function setEmail(string $email): self
     {
@@ -133,14 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-    * @see UserInterface
-    */
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
+/* ----------------------------------------------------------- RELATION (RESULT) ----------------------------------------------------------- */
 
     /**
      * @return Collection<int, Result>
@@ -172,5 +171,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+/* --------------------------------------------------------------- AUTRE -------------------------------------------------------------------- */ 
+
+    /**
+    * @see UserInterface
+    */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 
 }

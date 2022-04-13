@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
+
+/* ------------------------------------------------------------- COMPOSANT ------------------------------------------------------------------ */
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -18,13 +21,19 @@ class Category
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
 
+/* --------------------------------------------------------------- RELATION ----------------------------------------------------------------- */
+
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Exercise::class)]
     private $exercises;
+
+/* ------------------------------------------------------------ CONSCTRUCTEUR --------------------------------------------------------------- */
 
     public function __construct()
     {
         $this->exercises = new ArrayCollection();
     }
+
+/* ---------------------------------------------------------------- GETTER ------------------------------------------------------------------ */
 
     public function getId(): ?int
     {
@@ -36,12 +45,16 @@ class Category
         return $this->name;
     }
 
+/* ---------------------------------------------------------------- SETTER ------------------------------------------------------------------ */
+
     public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
+
+/* ---------------------------------------------------------- RELATION (EXERCISE) ----------------------------------------------------------- */
 
     /**
      * @return Collection<int, Exercise>

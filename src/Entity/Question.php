@@ -9,6 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
 {
+
+/* ------------------------------------------------------------- COMPOSANT ------------------------------------------------------------------ */
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -23,6 +26,8 @@ class Question
     #[ORM\Column(type: 'array', length: 255, nullable: false)]
     private $answer;
 
+/* --------------------------------------------------------------- RELATION ----------------------------------------------------------------- */
+
     #[ORM\OneToOne(targetEntity: Media::class, cascade: ['persist', 'remove'])]
     private $media;
 
@@ -30,8 +35,7 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private $exercise;
 
-
-
+/* ---------------------------------------------------------------- GETTER ------------------------------------------------------------------ */
 
     public function getId(): ?int
     {
@@ -42,17 +46,23 @@ class Question
     {
         return $this->title;
     }
+    public function getExplanation(): ?string
+    {
+        return $this->explanation;
+    }
+
+    public function getAnswer(): array
+    {
+        return $this->answer;
+    }
+
+/* ---------------------------------------------------------------- SETTER ------------------------------------------------------------------ */
 
     public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
-    }
-
-    public function getExplanation(): ?string
-    {
-        return $this->explanation;
     }
 
     public function setExplanation(?string $explanation): self
@@ -62,17 +72,14 @@ class Question
         return $this;
     }
 
-    public function getAnswer(): array
-    {
-        return $this->answer;
-    }
-
     public function setAnswer(array $answer): self
     {
         $this->answer = $answer;
 
         return $this;
     }
+
+/* ------------------------------------------------------------ RELATION (MEDIA) -------------------------------------------------------------- */
 
     public function getMedia(): ?Media
     {
@@ -85,6 +92,8 @@ class Question
 
         return $this;
     }
+
+/* ----------------------------------------------------------- RELATION (EXERCISE) ------------------------------------------------------------ */
 
     public function getExercise(): ?Exercise
     {
