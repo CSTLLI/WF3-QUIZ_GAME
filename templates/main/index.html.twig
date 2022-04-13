@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Bonjour !{% endblock %}
+
 
 {% block body %}
 
@@ -8,5 +9,14 @@
         
     </div>
 
+<div class="example-wrapper">
+{% if app.user %}
+    <h1>Bonjour, {{ app.user.firstname }}</h1>
+    <p>Comment allez-vous aujourd'hui ?<p>
+{% else %}
+    <h1>Bienvenue Monsieur, </h1>
+    <p>Connectez-vous afin d'effectuer vos premiers Quiz !<p>
+{% endif %}
+</div>
 
 {% endblock %}

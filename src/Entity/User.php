@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déja utilisé !')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,17 +20,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     private $email;
 
-    #[ORM\Column(type: 'json')]
-    private $roles = [];
-
-    #[ORM\Column(type: 'string')]
-    private $password;
-
     #[ORM\Column(type: 'string', length: 50)]
     private $name;
 
     #[ORM\Column(type: 'string', length: 50)]
     private $firstname;
+
+    #[ORM\Column(type: 'string')]
+    private $password;
+
+    #[ORM\Column(type: 'json')]
+    private $roles = [];
+
+
+    /* ------------------------------------- GETTER ------------------------------------------ */ 
 
     public function getId(): ?int
     {
@@ -40,21 +45,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function getName(): ?string
     {
-        $this->email = $email;
+        return $this->name;
+    }
 
-        return $this;
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
     }
 
     /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
+     * @see PasswordAuthenticatedUserInterface
      */
-    public function getUserIdentifier(): string
+    public function getPassword(): string
     {
-        return (string) $this->email;
+        return $this->password;
     }
 
     /**
@@ -69,31 +75,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
     /**
-     * @see PasswordAuthenticatedUserInterface
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getPassword(): string
+    public function getUserIdentifier(): string
     {
-        return $this->password;
+        return (string) $this->email;
     }
 
-    public function setPassword(string $password): self
+    /* ------------------------------------- SETTER ------------------------------------------ */ 
+
+    public function setEmail(string $email): self
     {
-        $this->password = $password;
+        $this->email = $email;
 
         return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
     }
 
     public function setName(string $name): self
@@ -103,11 +101,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
@@ -115,9 +108,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-        /**
-     * @see UserInterface
-     */
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+    * @see UserInterface
+    */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
