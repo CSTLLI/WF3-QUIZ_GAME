@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {# TEMPORAIRE bootswatch lux theme #} 
+    <link rel="stylesheet" href="https://bootswatch.com/5/lux/bootstrap.css">
+
+    <title>QuizGame - {% block title %}{% endblock %}</title>
+
+    {# BLOCK CSS #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {# BLOCK JS #}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+
+</head>
+
+    {# HEADER #}
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <a class="navbar-brand ms-2 me-4" href="{{ path('app_main_base') }}">Quiz Game</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+
+            {# Menu de Gauche #}
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_main_quiz') }}">Créer un quiz</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-lg fa-envelope pe-2"></i>Les Règles de Quiz Game</a>
+                </li>
+                {% if not app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_main_register') }}"><i class="fa-solid fa-lg fa-file-circle-plus pe-2"></i>S'inscrire</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_main_login') }}"><i class="fa-solid fa-lg fa-file-circle-plus pe-2"></i>Connexion</a>
+                    </li> 
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_main_logout') }}"><i class="fa-solid fa-lg fa-file-circle-plus pe-2"></i>Déconnexion</a>
+                    </li> 
+                {% endif %} 
+                {% if is_granted('ROLE_ADMIN') %} 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_index') }}"><i class="fa-solid fa-lg fa-file-circle-plus pe-2"></i>Administration</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+
+<body class="d-flex flex-column h-100">
+
+
+    <main>
+
+      {# BLOCK PRINCIPAL #}
+      {% block body %}{% endblock %}
+
+    </main>        
+
+    {# FOOTER #}
+    <footer class="footer mt-auto py-2 bg-dark">
+      <div class="container">
+        <span class="text-muted"> &copy; QuizGame 2022 </span>
+      </div>
+    </footer>
+
+</body>
+
+</html>
