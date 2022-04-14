@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nom de l'exercice{% endblock %}
+
+{% block body %}
+	<h1>Nom de l'exercice</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Titre</th>
+				<th>Categorie</th>
+				<th>Difficulté</th>
+
+
+			</tr>
+		</thead>
+			<tbody>
+				{% for exercise in exercises %}
+					<tr>
+						<td>{{ exercise.id }}</td>
+						<td>{{ exercise.title }}</td>
+						<td>{{ exercise.category.name }}</td>
+						<td>{{ exercise.difficulty.name }}</td>
+
+		
+						<td>
+							<a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">Afficher</a>
+							<a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">Modifier</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">Pas de résultats</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	<a href="{{ path('app_exercise_new') }}" class="btn btn-primary">Ajouter un nouveau</a>	
+	<a href="{{ path('app_exercise_index') }}" class="btn btn-primary">Retour à la création de quiz</a>
+	{% endblock %}
+		
+
+			
+

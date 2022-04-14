@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Difficulty index{% endblock %}
+
+{% block body %}
+    <h1>Difficulty index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Timer</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for difficulty in difficulties %}
+            <tr>
+                <td>{{ difficulty.id }}</td>
+                <td>{{ difficulty.name }}</td>
+                <td>{{ difficulty.timer }}</td>
+                <td>
+                    <a href="{{ path('app_difficulty_show', {'id': difficulty.id}) }}">show</a>
+                    <a href="{{ path('app_difficulty_edit', {'id': difficulty.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Pas de résultats</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_difficulty_new') }}" class="btn btn-primary">Ajouter un nouveau</a>
+    <a href="{{ path('app_exercise_index') }}" class="btn btn-primary">Retour à la création de quiz</a>
+{% endblock %}
